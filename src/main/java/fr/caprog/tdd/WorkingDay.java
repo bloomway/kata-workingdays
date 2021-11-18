@@ -1,6 +1,5 @@
 package fr.caprog.tdd;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
