@@ -3,7 +3,6 @@ package fr.caprog.tdd.services;
 import fr.caprog.tdd.domain.WorkingDay;
 import fr.caprog.tdd.domain.WorkingDays;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class WorkingDaysService {

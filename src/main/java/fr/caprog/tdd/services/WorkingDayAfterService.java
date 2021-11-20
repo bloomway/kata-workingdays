@@ -17,14 +17,18 @@ public class WorkingDayAfterService {
     }
 
     private static WorkingDay getTomorrow(LocalDate actualDate) {
-        return WorkingDay.of(actualDate.plusDays(DayShift.ONE_DAY));
+        return WorkingDay.of(incrementDays(actualDate, DayShift.ONE_DAY));
     }
 
     private static WorkingDay getMonday(LocalDate actualDate) {
         if(DayType.isSaturday(actualDate)) {
-            return WorkingDay.of(actualDate.plusDays(DayShift.TWO_DAYS));
+            return WorkingDay.of(incrementDays(actualDate, DayShift.TWO_DAYS));
         }
-        return WorkingDay.of(actualDate.plusDays(DayShift.THREE_DAYS));
+        return WorkingDay.of(incrementDays(actualDate, DayShift.THREE_DAYS));
+    }
+
+    private static LocalDate incrementDays(LocalDate actualDate, long daysToAdd) {
+        return actualDate.plusDays(daysToAdd);
     }
 
     private static boolean isFriday(LocalDate actualDate) {
