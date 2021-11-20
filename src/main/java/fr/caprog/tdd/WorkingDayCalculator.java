@@ -23,6 +23,10 @@ public class WorkingDayCalculator {
         return WorkingDay.of(actualDate);
     }
 
+    public static WorkingDays computeWorkingDays(LocalDate actualDate) {
+        return WorkingDays.of(actualDate);
+    }
+
     private static WorkingDay getFriday(LocalDate actualDate) {
         if (isMonday(actualDate)) return WorkingDay.of(actualDate.minusDays(THREE_DAYS));
         return WorkingDay.of(actualDate.minusDays(TWO_DAYS));
@@ -59,10 +63,6 @@ public class WorkingDayCalculator {
 
     private static boolean isFriday(LocalDate actualDate) {
         return DayOfWeek.FRIDAY.equals(actualDate.getDayOfWeek());
-    }
-
-    public static WorkingDays computeWorkingDays(LocalDate actualDate) {
-        return WorkingDays.of(actualDate);
     }
 
 }
