@@ -1,6 +1,4 @@
-package fr.caprog.tdd;
-
-import java.time.LocalDate;
+package fr.caprog.tdd.domain;
 
 public class WorkingDays {
     private WorkingDay previous;
@@ -15,11 +13,8 @@ public class WorkingDays {
         this.next = next;
     }
 
-    static WorkingDays of(LocalDate actualDate) {
-        final WorkingDay nextWorkingDay = WorkingDayCalculator.computeWorkingDayAfter(actualDate);
-        final WorkingDay previousWorkingDay = WorkingDayCalculator.computeWorkingDayBefore(actualDate);
-        final WorkingDay currentWorkingDay = WorkingDayCalculator.computeCurrentWorkingDay(actualDate);
-        return new WorkingDays(previousWorkingDay, currentWorkingDay, nextWorkingDay);
+    public static WorkingDays of(WorkingDay previous, WorkingDay current, WorkingDay next) {
+        return new WorkingDays(previous, current, next);
     }
 
     public WorkingDay getPrevious() {
