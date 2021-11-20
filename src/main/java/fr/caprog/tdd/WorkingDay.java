@@ -2,29 +2,25 @@ package fr.caprog.tdd;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Optional;
 
 public class WorkingDay {
 
-    private LocalDate previous;
-    private LocalDate current;
-    private LocalDate next;
+    private LocalDate value;
 
     protected WorkingDay() {
     }
 
-    private WorkingDay(LocalDate previousWorkingDay, LocalDate actualDate, LocalDate nextWorkingDay) {
-        this.previous = previousWorkingDay;
-        this.current = actualDate;
-        this.next = nextWorkingDay;
+    private WorkingDay(LocalDate actualDate) {
+        this.value = actualDate;
     }
 
-    public static WorkingDay of(
-            LocalDate previousWorkingDay,
-            LocalDate actualDate,
-            LocalDate nextWorkingDay
-    ) {
-        return new WorkingDay(previousWorkingDay, actualDate, nextWorkingDay);
+    public static WorkingDay of(LocalDate date) {
+        if(WorkingDayCalculator.isWeekend(date)) return empty();
+        return new WorkingDay(date);
+    }
+
+    public static WorkingDay empty() {
+        return new WorkingDay();
     }
 
     @Override
@@ -32,26 +28,19 @@ public class WorkingDay {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WorkingDay that = (WorkingDay) o;
-        return previous.equals(that.previous) &&
-                Objects.equals(current, that.current) &&
-                next.equals(that.next);
+        return Objects.equals(value, that.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(previous, current, next);
+        return Objects.hash(value);
+    }
+    public LocalDate getValue() {
+        return value;
     }
 
-    public LocalDate getPrevious() {
-        return previous;
+    @Override
+    public String toString() {
+        return "WorkingDay {" + "value=" + value + '}';
     }
-
-    public Optional<LocalDate> getCurrent() {
-        return current != null ? Optional.of(current) : Optional.empty();
-    }
-
-    public LocalDate getNext() {
-        return next;
-    }
-
 }
