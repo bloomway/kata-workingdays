@@ -1,6 +1,9 @@
-import fr.caprog.tdd.WorkingDay;
-import fr.caprog.tdd.WorkingDayCalculator;
-import fr.caprog.tdd.WorkingDays;
+import fr.caprog.tdd.domain.WorkingDay;
+import fr.caprog.tdd.domain.WorkingDays;
+import fr.caprog.tdd.services.WorkingDayAfterService;
+import fr.caprog.tdd.services.WorkingDayBeforeService;
+import fr.caprog.tdd.services.WorkingDaysService;
+import fr.caprog.tdd.services.WorkingDayCurrentService;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -22,7 +25,7 @@ public class WorkingDaysTest {
     @Test
     public void it_should_return_the_working_day_before_when_compute_working_day_before_given_date() {
         // When
-        final WorkingDay result = WorkingDayCalculator.computeWorkingDayBefore(CURRENT_WEDNESDAY);
+        final WorkingDay result = WorkingDayBeforeService.compute(CURRENT_WEDNESDAY);
         // Then
         assertThat(result).isEqualTo(WorkingDay.of(CURRENT_TUESDAY));
     }
@@ -30,7 +33,7 @@ public class WorkingDaysTest {
     @Test
     public void it_should_return_friday_when_compute_working_day_before_given_monday() {
         // when
-        final WorkingDay result = WorkingDayCalculator.computeWorkingDayBefore(CURRENT_MONDAY);
+        final WorkingDay result = WorkingDayBeforeService.compute(CURRENT_MONDAY);
         // Then
         assertThat(result).isEqualTo(WorkingDay.of(PREVIOUS_FRIDAY));
     }
@@ -38,7 +41,7 @@ public class WorkingDaysTest {
     @Test
     public void it_should_return_friday_when_compute_working_day_before_given_sunday() {
         // when
-        final WorkingDay result = WorkingDayCalculator.computeWorkingDayBefore(CURRENT_SUNDAY);
+        final WorkingDay result = WorkingDayBeforeService.compute(CURRENT_SUNDAY);
         // Then
         assertThat(result).isEqualTo(WorkingDay.of(CURRENT_FRIDAY));
     }
@@ -46,7 +49,7 @@ public class WorkingDaysTest {
     @Test
     public void it_should_return_day_after_when_compute_working_day_after_given_date() {
         // when
-        final WorkingDay result = WorkingDayCalculator.computeWorkingDayAfter(CURRENT_WEDNESDAY);
+        final WorkingDay result = WorkingDayAfterService.compute(CURRENT_WEDNESDAY);
         // Then
         assertThat(result).isEqualTo(WorkingDay.of(CURRENT_THURSDAY));
     }
@@ -55,7 +58,7 @@ public class WorkingDaysTest {
     public void it_should_return_monday_when_compute_working_day_after_given_friday() {
 
         // when
-        final WorkingDay result = WorkingDayCalculator.computeWorkingDayAfter(CURRENT_FRIDAY);
+        final WorkingDay result = WorkingDayAfterService.compute(CURRENT_FRIDAY);
         // then
         assertThat(result).isEqualTo(WorkingDay.of(NEXT_MONDAY));
     }
@@ -63,7 +66,7 @@ public class WorkingDaysTest {
     @Test
     public void it_should_return_monday_when_compute_working_day_after_given_saturday() {
         // when
-        final WorkingDay result = WorkingDayCalculator.computeWorkingDayAfter(CURRENT_SATURDAY);
+        final WorkingDay result = WorkingDayAfterService.compute(CURRENT_SATURDAY);
         // then
         assertThat(result).isEqualTo(WorkingDay.of(NEXT_MONDAY));
     }
@@ -71,7 +74,7 @@ public class WorkingDaysTest {
     @Test
     public void it_should_return_current_working_day_when_compute_current_working_day_given_date() {
         // when
-        final WorkingDay result = WorkingDayCalculator.computeCurrentWorkingDay(CURRENT_MONDAY);
+        final WorkingDay result = WorkingDayCurrentService.compute(CURRENT_MONDAY);
         // then
         assertThat(result).isEqualTo(WorkingDay.of(CURRENT_MONDAY));
     }
@@ -79,7 +82,7 @@ public class WorkingDaysTest {
     @Test
     public void it_should_return_empty_working_day_when_compute_current_working_day_given_weekend() {
         // when
-        final WorkingDay result = WorkingDayCalculator.computeCurrentWorkingDay(CURRENT_SATURDAY);
+        final WorkingDay result = WorkingDayCurrentService.compute(CURRENT_SATURDAY);
         // Then
         final WorkingDay expectedWorkingDate = WorkingDay.empty();
         assertThat(result).isEqualTo(expectedWorkingDate);
@@ -88,7 +91,7 @@ public class WorkingDaysTest {
     @Test
     public void it_should_return_wednesday_when_compute_working_day_given_wednesday() {
         // when
-        WorkingDay workingDay = WorkingDayCalculator.computeCurrentWorkingDay(CURRENT_WEDNESDAY);
+        WorkingDay workingDay = WorkingDayCurrentService.compute(CURRENT_WEDNESDAY);
         // then
         WorkingDay expectedWorkingDate = WorkingDay.of(CURRENT_WEDNESDAY);
         assertThat(workingDay).isEqualTo(expectedWorkingDate);
@@ -97,7 +100,7 @@ public class WorkingDaysTest {
     @Test
     public void it_should_return_friday_and_monday_when_compute_working_days_working_given_saturday() {
         // when
-        final WorkingDays saturday = WorkingDayCalculator.computeWorkingDays(CURRENT_SATURDAY);
+        final WorkingDays saturday = WorkingDaysService.compute(CURRENT_SATURDAY);
         // then
         assertThat(saturday.getPrevious()).isEqualTo(WorkingDay.of(CURRENT_FRIDAY));
         assertThat(saturday.getCurrent()).isEqualTo(WorkingDay.empty());
@@ -107,7 +110,7 @@ public class WorkingDaysTest {
     @Test
     public void it_should_return_tuesday_wednesday_and_thursday_when_compute_working_days_working_given_wednesday() {
         // when
-        final WorkingDays wednesday = WorkingDayCalculator.computeWorkingDays(CURRENT_WEDNESDAY);
+        final WorkingDays wednesday = WorkingDaysService.compute(CURRENT_WEDNESDAY);
 
         // then
         assertThat(wednesday.getPrevious()).isEqualTo(WorkingDay.of(CURRENT_TUESDAY));

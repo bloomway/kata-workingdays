@@ -1,4 +1,6 @@
-package fr.caprog.tdd;
+package fr.caprog.tdd.domain;
+
+import fr.caprog.tdd.common.DayType;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -15,7 +17,7 @@ public class WorkingDay {
     }
 
     public static WorkingDay of(LocalDate date) {
-        if(WorkingDayCalculator.isWeekend(date)) return empty();
+        if(DayType.isWeekend(date)) return empty();
         return new WorkingDay(date);
     }
 
@@ -35,6 +37,7 @@ public class WorkingDay {
     public int hashCode() {
         return Objects.hash(value);
     }
+
     public LocalDate getValue() {
         return value;
     }
