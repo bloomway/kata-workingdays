@@ -6,7 +6,7 @@ Le leader technique de ce projet divise la problématique en sous-fonctionnalit�
 1.	Calculer le jour de travail précédent à partir d’une date donnée
 2.	Calculer le jour de travail suivant à partir d’une date donnée.
 On considère le jour de travail comme un jour de la semaine, c’est-à-dire, de lundi à vendredi (hors weekend).
-Construis les sous-fonctionnalités en utilisant l’approche TDD en partant de la classe de test « WorkingDaysTest » situé dans le projet.
+Construis les sous-fonctionnalités en utilisant l’approche TDD en partant de la classe de test « BusinessDaysTest » situé dans le projet.
 
 **Note** : pour faciliter le travail avec les dates en Java, tu peux utiliser l’objet LocalDate de Java 9.
 
