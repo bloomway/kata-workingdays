@@ -1,35 +1,34 @@
 package fr.caprog.tdd.domain;
 
-import fr.caprog.tdd.common.DayType;
+import fr.caprog.tdd.common.TypeOfDay;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class WorkingDay {
+public class BusinessDay {
 
     private LocalDate value;
 
-    protected WorkingDay() {
-    }
+    protected BusinessDay() {}
 
-    private WorkingDay(LocalDate actualDate) {
+    private BusinessDay(LocalDate actualDate) {
         this.value = actualDate;
     }
 
-    public static WorkingDay of(LocalDate date) {
-        if(DayType.isWeekend(date)) return empty();
-        return new WorkingDay(date);
+    public static BusinessDay of(LocalDate date) {
+        if(TypeOfDay.isWeekend(date)) return empty();
+        return new BusinessDay(date);
     }
 
-    public static WorkingDay empty() {
-        return new WorkingDay();
+    public static BusinessDay empty() {
+        return new BusinessDay();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        WorkingDay that = (WorkingDay) o;
+        BusinessDay that = (BusinessDay) o;
         return Objects.equals(value, that.value);
     }
 
@@ -38,12 +37,8 @@ public class WorkingDay {
         return Objects.hash(value);
     }
 
-    public LocalDate getValue() {
-        return value;
-    }
-
     @Override
     public String toString() {
-        return "WorkingDay {" + "value=" + value + '}';
+        return value != null ? value.toString() : "";
     }
 }
